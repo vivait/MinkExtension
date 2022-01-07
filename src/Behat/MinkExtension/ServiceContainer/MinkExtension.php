@@ -12,6 +12,7 @@ namespace Behat\MinkExtension\ServiceContainer;
 
 use Behat\Behat\Context\ServiceContainer\ContextExtension;
 use Behat\MinkExtension\ServiceContainer\Driver\AppiumFactory;
+use Behat\MinkExtension\ServiceContainer\Driver\BrowserKitFactory;
 use Behat\MinkExtension\ServiceContainer\Driver\BrowserStackFactory;
 use Behat\MinkExtension\ServiceContainer\Driver\DriverFactory;
 use Behat\MinkExtension\ServiceContainer\Driver\GoutteFactory;
@@ -51,6 +52,7 @@ class MinkExtension implements ExtensionInterface
     public function __construct()
     {
         $this->registerDriverFactory(new GoutteFactory());
+        $this->registerDriverFactory(new BrowserKitFactory());
         $this->registerDriverFactory(new SahiFactory());
         $this->registerDriverFactory(new SeleniumFactory());
         $this->registerDriverFactory(new Selenium2Factory());
