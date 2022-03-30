@@ -152,6 +152,15 @@ class Selenium2Factory implements DriverFactory
                             ->prototype('variable')->end()
                         ->end()
                     ->end()
+                    ->validate()
+                        ->ifTrue(function ($v) {
+                            return empty($v['prefs']);
+                        })
+                        ->then(function ($v) {
+                            unset($v['prefs']);
+                            return $v;
+                        })
+                    ->end()
                 ->end()
                 ->arrayNode('extra_capabilities')
                     ->info('Custom capabilities merged with the known ones')
