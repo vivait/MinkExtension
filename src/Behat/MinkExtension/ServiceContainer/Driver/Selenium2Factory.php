@@ -146,7 +146,20 @@ class Selenium2Factory implements DriverFactory
                         ->arrayNode('switches')->prototype('scalar')->end()->end()
                         ->scalarNode('binary')->end()
                         ->arrayNode('extensions')->prototype('scalar')->end()->end()
-                        ->arrayNode('prefs')->prototype('variable')->end()->end()
+                        ->arrayNode('prefs')
+                            ->normalizeKeys(false)
+                            ->useAttributeAsKey('name')
+                            ->prototype('variable')->end()
+                        ->end()
+                    ->end()
+                    ->validate()
+                        ->ifTrue(function ($v) {
+                            return empty($v['prefs']);
+                        })
+                        ->then(function ($v) {
+                            unset($v['prefs']);
+                            return $v;
+                        })
                     ->end()
                 ->end()
                 ->arrayNode('extra_capabilities')
